@@ -1,4 +1,4 @@
-export const importJitsiApi = (): Promise<void> => new Promise(async (resolve) => {
+export const importJitsiApi = (domain: string | undefined): Promise<void> => new Promise(async (resolve) => {
     if(window.JitsiMeetExternalAPI) {
         resolve(window.JitsiMeetExternalAPI)
     } else {
@@ -6,7 +6,12 @@ export const importJitsiApi = (): Promise<void> => new Promise(async (resolve) =
         const script = document.createElement("script"); 
 
         script.setAttribute("type", "text/javascript");
-        script.setAttribute("src", "https://meet.jit.si/external_api.js");
+
+        let externalApiUrl = 'https://meet.jit.si/external_api.js';
+        if (domain) {
+            externalApiUrl = `https://${domain}/external_api.js`;
+        }
+        script.setAttribute("src", externalApiUrl);
 
         head.addEventListener("load", function(event: any) {
             if (event.target.nodeName === "SCRIPT") {
