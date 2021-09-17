@@ -27,6 +27,11 @@ const Jitsi: React.FC<Props> = (props: Props) => {
 
     const Loader = loadingComponent || Default.Loader
 
+    const _onIframeLoad = (): void => {
+        if (onIframeLoad) { onIframeLoad() }
+        setLoading(false)
+    }
+
     const startConference = (JitsiMeetExternalAPI: any): void => {
 
         try {
@@ -41,7 +46,7 @@ const Jitsi: React.FC<Props> = (props: Props) => {
                 interfaceConfigOverwrite: interfaceConfig,
                 noSSL,
                 jwt,
-                onLoad: onIframeLoad,
+                onLoad: _onIframeLoad,
                 devices,
                 userInfo,
             }
@@ -53,9 +58,6 @@ const Jitsi: React.FC<Props> = (props: Props) => {
             if (onAPILoad) onAPILoad(api)
 
             api.addEventListener('videoConferenceJoined', () => {
-
-                setLoading(false)
-
                 api.executeCommand('displayName', displayName)
 
                 if (domain === Default.Props.domain && password)
