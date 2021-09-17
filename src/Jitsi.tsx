@@ -46,7 +46,7 @@ const Jitsi: React.FC<Props> = (props: Props) => {
                 interfaceConfigOverwrite: interfaceConfig,
                 noSSL,
                 jwt,
-                onLoad: _onIframeLoad,
+                onload: _onIframeLoad,
                 devices,
                 userInfo,
             }
