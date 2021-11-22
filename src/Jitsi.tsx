@@ -20,8 +20,6 @@ const Jitsi: React.FC<Props> = (props: Props) => {
         jwt,
         devices,
         userInfo,
-        videoConferenceJoinedListener,
-        videoConferenceLeftListener
     } = { ...Default.Props, ...props }
 
     const [loading, setLoading] = useState(true)
@@ -59,19 +57,12 @@ const Jitsi: React.FC<Props> = (props: Props) => {
 
             if (onAPILoad) onAPILoad(api)
 
-            api.addEventListener('videoConferenceJoined', (event: object) => {
+            api.addEventListener('videoConferenceJoined', () => {
                 api.executeCommand('displayName', displayName)
 
                 if (domain === Default.Props.domain && password)
                     api.executeCommand('password', password)
 
-                if (videoConferenceJoinedListener)
-                    videoConferenceJoinedListener(event);
-            })
-
-            api.addEventListener('videoConferenceLeft', (event: object) => {
-                if (videoConferenceLeftListener)
-                    videoConferenceLeftListener(event);
             })
 
             /** 

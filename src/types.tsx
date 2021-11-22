@@ -1183,7 +1183,4 @@ export interface Props {
         email?: string;
     };
 
-    videoConferenceJoinedListener?: (event: object) => void;
-
-    videoConferenceLeftListener?: (event: object) => void;
 }
